@@ -7,3 +7,7 @@ build/
 .pytest_cache/
 .venv/
 .vscode/
+
+*.aux
+*.log
+*.out
