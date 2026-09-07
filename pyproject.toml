@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "idempotent-poly"
+version = "0.1.1"
+description = "Orthogonal Polynomial Tensors & Zero-Backprop Algebraic Solvers for Deep Learning"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Dr. A. Emre ÇETİN", email = "aemre.cetin@gmail.com" }
+]
+keywords = [
+    "polynomial-networks", "chebyshev-tensors", "zero-backprop", "idempotent",
+    "model-compression", "weight-surgery", "spectral-projection", "transformers"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.40.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/aemre-cetin/idempotent-poly"
+Repository = "https://github.com/aemre-cetin/idempotent-poly"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
