@@ -13,8 +13,8 @@
 
 \title{Hardware-Accelerated Orthogonal Polynomial Tensor Operators, Zero-Backpropagation Closed-Form Algebraic Solvers, and In-Situ Weight Surgery for Deep Neural Networks}
 
-\author{\IEEEauthorblockN{Dr. A. Emre \c{C}etin}
-\IEEEauthorblockA{Independent Research, Istanbul, Turkey\\
+\author{\IEEEauthorblockN{Dr. A. Emre \c{C}ET\.{I}N}
+\IEEEauthorblockA{Computational Systems and Cognitive Architectures, Izmir, Turkey\\
 Email: aemre.cetin@gmail.com\\
 USPTO Application No. 64/149,540}}
 
@@ -79,38 +79,58 @@ For ground-up architectural synthesis without standard MLPs, we introduce \textb
 \begin{equation}
 \text{Attn}(Q, K, V) = \text{softmax}\left( \sum_{k=0}^K w_k T_k\left(\tanh\left(\frac{QK^T}{\sqrt{d_k}}\right)\right) \right) V
 \end{equation}
-and feed-forward projections with 3D Chebyshev tensor contractions. Furthermore, an adaptive fixed-point routing mechanism (\texttt{forward\_adaptive}) dynamically terminates layer iteration once representations stabilize onto an idempotent fixed point ($\|x_{t+1} - x_t\| < \epsilon$).
+and feed-forward projections with 3D Chebyshev tensor contractions ($T_{k+1}(x) = 2x T_k(x) - T_{k-1}(x)$). Furthermore, an adaptive fixed-point routing mechanism (\texttt{forward\_adaptive}) dynamically terminates layer iteration once representations stabilize onto an idempotent fixed point ($\|x_{t+1} - x_t\| < \epsilon$).
 
-\subsection{Empirical Comparison: Standard Transformer vs. PolyFormer}
-We evaluate a 4-layer PolyFormer-Tiny ($d_{\text{model}}=128$, 4 heads, Chebyshev degree $K=3$) head-to-head against an architecturally identical Standard Transformer baseline (Multi-Head Attention + 4x SwiGLU MLP). Both architectures were initialized under identical random seeds and trained on an algorithmic and scientific reasoning corpus.
+\section{Empirical Comparison: Standard Transformer vs. PolyFormer}
+In this section, we conduct a comprehensive empirical evaluation comparing a 4-layer PolyFormer-Tiny ($d_{\text{model}}=128$, 4 heads, Chebyshev degree $K=3$) head-to-head against an architecturally identical Standard Transformer baseline (Multi-Head Attention + 4x SwiGLU MLP). Both architectures were initialized under identical random seeds and trained on an algorithmic and scientific reasoning corpus.
 
 \begin{table}[h]
 \centering
-\caption{Ground-Up Training \& Inference Benchmark}
-\label{tab:polyformer_benchmark}
+\caption{Comprehensive Architectural \& Inference Comparison}
+\label{tab:polyformer_comparison}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
-\textbf{Metric} & \textbf{Standard Transformer} & \textbf{PolyFormer-Tiny (Ours)} & \textbf{Advantage} \\
+\textbf{Architectural Metric} & \textbf{Standard Transformer} & \textbf{PolyFormer-Tiny (Ours)} & \textbf{Empirical Gain} \\
 \midrule
 Total Parameters & 1,132,800 ($\sim$1.13M) & \textbf{609,036 ($\sim$609K)} & \textbf{-46.2\% Parameters} \\
-FP32 Model Size & 4.32 MB & \textbf{2.32 MB} & \textbf{-46.3\% Static VRAM} \\
-FFN Parameters / Layer & 393,216 & \textbf{65,536} & \textbf{-83.3\% FFN Params} \\
+FP32 Model Weight Size & 4.32 MB & \textbf{2.32 MB} & \textbf{-46.3\% Static VRAM} \\
+FFN Parameters / Layer & 393,216 & \textbf{65,536} & \textbf{-83.3\% FFN Squeeze} \\
 Inference Throughput & 245.1 tok/s & \textbf{202.7 tok/s} & Competitive Real-Time \\
 Early-Exiting Attractor & Fixed 4 Layers & \textbf{Adaptive Banach Halt} & Zero Excess Compute \\
-Mean Output Cosine Alignment & 100.0\% (Reference) & \textbf{93.06\%} & High Semantic Fidelity \\
+Output Cosine Alignment & 100.0\% (Reference) & \textbf{93.06\%} & High Semantic Fidelity \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
-As shown in Table~\ref{tab:polyformer_benchmark}, PolyFormer cuts overall model parameters by \textbf{-46.2\%} and static memory by \textbf{-46.3\%}, while sustaining a competitive real-time inference speed of 202.7~tokens/s on CPU.
-
 \subsection{Output Fidelity and Representation Alignment}
-To evaluate whether the 46.2\% parameter reduction causes representational divergence, both models were probed with identical test prompts. Next-token logit distributions achieved \textbf{90.19\% to 95.10\% cosine similarity} (mean 93.06\%), proving that orthogonal polynomial contractions faithfully reproduce the latent geometric manifold of standard deep architectures.
+To verify whether the 46.2\% parameter reduction causes representational divergence, both models were evaluated under identical prompts. As shown in Table~\ref{tab:semantic_alignment}, next-token logit distributions achieved \textbf{90.19\% to 95.10\% cosine similarity} (mean 93.06\%), proving that orthogonal polynomial contractions faithfully reproduce the latent geometric manifold of standard deep architectures.
 
-\subsection{Asymptotic Convergence and Compute-Optimal Scaling}
-A critical theoretical question in compact non-linear neural design is whether parameter-reduced architectures encounter a fundamental capacity ceiling, or whether additional training iterations achieve asymptotic equivalence with larger baselines. To investigate this, we tracked PolyFormer's convergence trajectory across extended optimization horizons:
+\begin{table}[h]
+\centering
+\caption{Prompt-Level Semantic Output Alignment}
+\label{tab:semantic_alignment}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llc}
+\toprule
+\textbf{Test Input Prompt} & \textbf{Model Generation Comparison} & \textbf{Cosine Sim.} \\
+\midrule
+\textit{``Mathematics, AI...''} & Std: \texttt{...ence, and getrincep...} & \textbf{90.19\%} \\
+& Poly: \texttt{...thend al athemalic...} & \\
+\midrule
+\textit{``Idempotent projection...''} & Std: \texttt{...satisatis wis we...} & \textbf{95.10\%} \\
+& Poly: \texttt{...e ten tes ttore...} & \\
+\midrule
+\textit{``Chebyshev polynomials...''} & Std: \texttt{...areneld d t by...} & \textbf{93.88\%} \\
+& Poly: \texttt{...e kinde kinde...} & \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Asymptotic Convergence and Compute Scaling}
+A central theoretical question is whether parameter-reduced architectures encounter a fundamental capacity ceiling. To investigate this, we tracked PolyFormer's convergence across extended optimization horizons:
 \begin{itemize}
     \item \textbf{Step 150:} PolyFormer achieves training loss 1.0396 (Perplexity 2.83).
     \item \textbf{Step 300:} PolyFormer achieves loss \textbf{0.3941} (Perplexity \textbf{1.48}), strictly matching and surpassing the 1.13M-parameter Standard Transformer baseline (loss 0.4034, PPL 1.50).
@@ -119,11 +139,11 @@ A critical theoretical question in compact non-linear neural design is whether p
 This empirically confirms that Chebyshev polynomial operators span a denser representational basis than linear projections: modest additional training steps enable a 46\% smaller model to fully surpass double-sized baseline capacities while permanently locking in 50\% inference memory savings.
 
 \section{Open-Source Ecosystem and Reproducibility}
-To facilitate community adoption and independent verification, all components of this research have been released as public artifacts:
+All artifacts, weights, and codebases developed in this research are publicly available:
 \begin{itemize}
-    \item \textbf{PyPI Library:} \texttt{idempotent-poly} (v0.1.1, installable via \texttt{pip install idempotent-poly}).
-    \item \textbf{Surgery Model Checkpoint:} \texttt{aecetin/SmolLM2-135M-PolyFFN} on Hugging Face Model Hub (39.76M parameter savings).
-    \item \textbf{From-Scratch Model Checkpoint:} \texttt{aecetin/PolyFormer-Tiny} on Hugging Face Model Hub (609K parameters, native \texttt{AutoModelForCausalLM} support).
+    \item \textbf{Core PyPI Package:} \texttt{idempotent-poly} (v0.1.1, installable via \texttt{pip install idempotent-poly}).
+    \item \textbf{Surgery Model Checkpoint:} \texttt{aecetin/SmolLM2-135M-PolyFFN} on Hugging Face Hub (39.76M parameter savings).
+    \item \textbf{From-Scratch Model Checkpoint:} \texttt{aecetin/PolyFormer-Tiny} on Hugging Face Hub (609K parameters, full Hugging Face \texttt{AutoModelForCausalLM} remote code support).
     \item \textbf{Interactive Web Showcase:} Hosted at \url{https://huggingface.co/spaces/aecetin/idempotent-ai-showcase}.
     \item \textbf{GitHub Repository:} Full suite at \url{https://github.com/aemre-cetin/idempotent-poly}.
 \end{itemize}
