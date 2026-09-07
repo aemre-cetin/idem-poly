@@ -3,6 +3,7 @@
 [![PyPI Version](https://img.shields.io/badge/pypi-v0.1.1-blue.svg)](https://pypi.org/project/idempotent-poly/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 [![Hugging Face Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SmolLM2--135M--PolyFFN-pink)](https://huggingface.co/aecetin/SmolLM2-135M-PolyFFN)
+[![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication_414060833-00CCBB.svg?logo=researchgate)](https://www.researchgate.net/publication/414060833_Hardware-Accelerated_Orthogonal_Polynomial_Tensor_Operators_Zero-Backpropagation_Closed-Form_Algebraic_Solvers_and_In-Situ_Weight_Surgery_for_Deep_Neural_Networks)
 [![Interactive Showcase](https://img.shields.io/badge/Spaces-Idempotent%20AI%20Showcase-orange)](https://huggingface.co/spaces/aecetin/idempotent-ai-showcase)
 [![Patent](https://img.shields.io/badge/USPTO%20Patent-64%2F149%2C540-red.svg)](https://patents.google.com)
 
