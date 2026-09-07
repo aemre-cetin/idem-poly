@@ -121,3 +121,4 @@ python packages/idempotent-poly/benchmarks/run_record_breaking_unified_benchmark
 
 ---
 *Report generated and hardware-verified: 2026-09-07.*
+
