@@ -85,3 +85,36 @@ class ChebyshevPolyFFN(nn.Module):
         out = torch.einsum('...ik, oik -> ...o', T, self.coefficients)
         return (out + self.bias) * self.scale
 
+    def fit_algebraic(self, X: torch.Tensor, Y: torch.Tensor, l2_reg: float = 1e-3, rank_ratio: float = 0.95):
+        """
+        Zero-Backpropagation closed-form algebraic solve on idempotent manifold.
+        """
+        N, D = X.shape
+        device = X.device
+        dtype = X.dtype
+
+        X_f32 = X.float()
+        Y_f32 = Y.float()
+
+        T = self.compute_chebyshev_basis(X_f32)
+        Phi = T.reshape(N, -1)
+        feat_dim = Phi.shape[1]
+
+        reg = l2_reg * torch.eye(feat_dim, device=device)
+        A = Phi.T @ Phi + reg
+        B = Phi.T @ Y_f32
+        W_flat = torch.linalg.solve(A, B)
+
+        U, S, Vh = torch.linalg.svd(Phi, full_matrices=False)
+        k = int(Vh.size(0) * rank_ratio)
+        V_r = Vh[:k, :].mH
+        Pi = V_r @ V_r.mH
+        W_idempotent = Pi @ W_flat
+
+        W_reshaped = W_idempotent.T.reshape(D, D, self.degree + 1)
+        with torch.no_grad():
+            self.coefficients.copy_(W_reshaped.to(dtype))
+            self.bias.copy_(torch.zeros(D, device=device, dtype=dtype))
+            self.scale.copy_(torch.tensor(1.0, device=device, dtype=dtype))
+
+
