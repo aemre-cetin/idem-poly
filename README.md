@@ -64,7 +64,7 @@ pip install idempotent-poly
 
 Or install from source:
 ```bash
-git clone https://github.com/aemre-cetin/idempotent-poly.git
+git clone https://github.com/aemre-cetin/idem-poly.git
 cd idempotent-poly
 pip install -e .
 ```

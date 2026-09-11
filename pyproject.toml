@@ -32,8 +32,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/aemre-cetin/idempotent-poly"
-Repository = "https://github.com/aemre-cetin/idempotent-poly"
+Homepage = "https://github.com/aemre-cetin/idem-poly"
+Repository = "https://github.com/aemre-cetin/idem-poly"
 
 [tool.setuptools.packages.find]
 where = ["src"]

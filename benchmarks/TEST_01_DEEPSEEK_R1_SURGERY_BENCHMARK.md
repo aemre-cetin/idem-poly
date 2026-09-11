@@ -150,7 +150,7 @@ TOTAL VRAM       : 4.98 GB  ✅ RUNS STABLY (Under 6 GB VRAM limit!)
 
 ## Reproducibility Script
 The benchmark script is open-source and located at:
-[`packages/idempotent-poly/examples/deepseek_r1_8b_surgery_benchmark.py`](file:///d:/ECETIN/ECETIN/studies/software/idempotent-permutations/packages/idempotent-poly/examples/deepseek_r1_8b_surgery_benchmark.py)
+[`packages/idem-poly/examples/deepseek_r1_8b_surgery_benchmark.py`](file:///d:/ECETIN/ECETIN/studies/software/idempotent-permutations/packages/idem-poly/examples/deepseek_r1_8b_surgery_benchmark.py)
 
 ---
 *Report generated and verified on local hardware: 2026-09-07.*

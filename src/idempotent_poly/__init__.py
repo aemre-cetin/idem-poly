@@ -8,8 +8,14 @@ from .chebyshev import ChebyshevTensorLayer, ChebyshevPolyFFN
 from .algebraic import AlgebraicIdempotentSolver
 from .surgeon import PolySurgeon, ResidualPolyMLP
 from .polyformer import IdemPolyAttention, PolyFormerBlock
+from .idemformer_engine import (
+    IdemFormerEngine,
+    SubspaceKVCompactor,
+    TarskiFixpointVerifier,
+    TropicalAttentionEvaluator,
+)
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __author__ = "Dr. A. Emre ÇETİN"
 
 __all__ = [
@@ -20,5 +26,9 @@ __all__ = [
     "ResidualPolyMLP",
     "IdemPolyAttention",
     "PolyFormerBlock",
+    "IdemFormerEngine",
+    "SubspaceKVCompactor",
+    "TarskiFixpointVerifier",
+    "TropicalAttentionEvaluator",
 ]
 

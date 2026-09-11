@@ -116,7 +116,7 @@ $$f(Q \oplus A) = A$$
 ## Benchmark Reproduction
 Run the verified benchmark directly:
 ```bash
-python packages/idempotent-poly/benchmarks/run_record_breaking_unified_benchmark.py
+python packages/idem-poly/benchmarks/run_record_breaking_unified_benchmark.py
 ```
 
 ---
