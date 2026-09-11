@@ -11,3 +11,13 @@ build/
 *.aux
 *.log
 *.out
+
+# Patent documents and sensitive filing materials
+patent/
+**/patent/
+*.docx
+*dekont*
+*makbuz*
+*fatura*
+*receipt*
+*payment*
