@@ -33,9 +33,16 @@ if os.path.exists(src_dir):
 # Check for sibling packages or pip
 parent_dir = os.path.dirname(os.path.dirname(repo_dir))
 if os.path.exists(parent_dir):
-    for pkg in ["idempotent-poly", "idempotent-attention", "idempotent-compaction", "idempotent-reasoning", "idempotent-tropical", "idempotent-kv"]:
+    for pkg in [
+        "idem-poly", "idempotent-poly",
+        "idem-attention", "idempotent-attention",
+        "idem-compaction", "idempotent-compaction",
+        "idem-reasoning", "idempotent-reasoning",
+        "idem-tropical", "idempotent-tropical",
+        "idem-kv", "idempotent-kv"
+    ]:
         pkg_src = os.path.join(parent_dir, "packages", pkg, "src")
-        if os.path.exists(pkg_src):
+        if os.path.exists(pkg_src) and pkg_src not in sys.path:
             sys.path.insert(0, pkg_src)
 
 # Standalone / Self-contained fallback implementations if sibling packages are not installed

@@ -33,9 +33,9 @@ if os.path.exists(src_dir):
 # Check for sibling packages
 parent_dir = os.path.dirname(os.path.dirname(repo_dir))
 if os.path.exists(parent_dir):
-    for pkg in ["idempotent-poly", "idempotent-kv"]:
+    for pkg in ["idem-poly", "idempotent-poly", "idem-kv", "idempotent-kv"]:
         pkg_src = os.path.join(parent_dir, "packages", pkg, "src")
-        if os.path.exists(pkg_src):
+        if os.path.exists(pkg_src) and pkg_src not in sys.path:
             sys.path.insert(0, pkg_src)
 
 # Fallback implementations

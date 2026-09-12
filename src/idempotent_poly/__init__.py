@@ -6,7 +6,13 @@ Author: Dr. A. Emre ÇETİN
 
 from .chebyshev import ChebyshevTensorLayer, ChebyshevPolyFFN
 from .algebraic import AlgebraicIdempotentSolver
-from .surgeon import PolySurgeon, ResidualPolyMLP
+from .surgeon import (
+    PolySurgeon,
+    AutoPolySurgeon,
+    ModelArchitectureDetector,
+    ArchitectureType,
+    ResidualPolyMLP,
+)
 from .polyformer import IdemPolyAttention, PolyFormerBlock
 from .idemformer_engine import (
     IdemFormerEngine,
@@ -14,8 +20,13 @@ from .idemformer_engine import (
     TarskiFixpointVerifier,
     TropicalAttentionEvaluator,
 )
+from .ssm_bridge import (
+    make_hippo_chebyshev_matrix,
+    HurwitzStabilityProjection,
+    convert_attention_head_to_ssm,
+)
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __author__ = "Dr. A. Emre ÇETİN"
 
 __all__ = [
@@ -23,6 +34,9 @@ __all__ = [
     "ChebyshevPolyFFN",
     "AlgebraicIdempotentSolver",
     "PolySurgeon",
+    "AutoPolySurgeon",
+    "ModelArchitectureDetector",
+    "ArchitectureType",
     "ResidualPolyMLP",
     "IdemPolyAttention",
     "PolyFormerBlock",
@@ -30,5 +44,7 @@ __all__ = [
     "SubspaceKVCompactor",
     "TarskiFixpointVerifier",
     "TropicalAttentionEvaluator",
+    "make_hippo_chebyshev_matrix",
+    "HurwitzStabilityProjection",
+    "convert_attention_head_to_ssm",
 ]
-
