@@ -25,6 +25,12 @@ from .ssm_bridge import (
     HurwitzStabilityProjection,
     convert_attention_head_to_ssm,
 )
+from .adaptive_surgeon import (
+    RayleighRitzAdaptiveSurgeon,
+    BordaSurgeryFusion,
+    RankChebyshevTensorLayer,
+)
+from .young_poly import YoungFactorizedPolyFFN
 
 __version__ = "0.1.3"
 __author__ = "Dr. A. Emre ÇETİN"
@@ -47,4 +53,8 @@ __all__ = [
     "make_hippo_chebyshev_matrix",
     "HurwitzStabilityProjection",
     "convert_attention_head_to_ssm",
+    "RayleighRitzAdaptiveSurgeon",
+    "BordaSurgeryFusion",
+    "RankChebyshevTensorLayer",
+    "YoungFactorizedPolyFFN",
 ]

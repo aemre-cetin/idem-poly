@@ -98,6 +98,34 @@ else:
 print(f'Başarılı icra: {type(res)}')
 ```
 
+### 3.3. Rayleigh-Ritz Adaptif Cerrahi & Young-Factorized FFN
+```python
+import torch
+from idempotent_poly import (
+    RayleighRitzAdaptiveSurgeon,
+    YoungFactorizedPolyFFN,
+    BordaSurgeryFusion,
+    RankChebyshevTensorLayer,
+)
+
+# 1. Spektral Boşluk Analizi ile Katman Rankı ve Derece Tayini:
+X_calib = torch.randn(100, 128)
+spectrum_meta = RayleighRitzAdaptiveSurgeon.analyze_layer_spectrum(X_calib)
+print(f"Optimal Rank: {spectrum_meta['optimal_rank']}, Derece: {spectrum_meta['recommended_degree']}")
+
+# 2. Young-Factorized SRAM-Tiled FFN (%75 Parametre Tasarrufu & On-Chip SMEM):
+young_ffn = YoungFactorizedPolyFFN(d_model=128, tile_size=32, degree=3)
+out = young_ffn(torch.randn(2, 16, 128))
+print(f"Young FFN Çıktı Şekli: {out.shape}")
+
+# 3. Çoklu Alan (Math + Code + NLP) Borda Konsensüs Füzyonu:
+fused_W = BordaSurgeryFusion.fuse_domain_coefficients([
+    torch.randn(16, 16, 4), # Math
+    torch.randn(16, 16, 4), # Code
+    torch.randn(16, 16, 4), # Language
+])
+```
+
 ---
 
 ## 4. Canlı Web Studio Arayüzü
