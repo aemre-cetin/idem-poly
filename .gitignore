@@ -21,3 +21,34 @@ patent/
 *fatura*
 *receipt*
 *payment*
+
+# ==============================================================================
+# PATENT & SENSITIVE FILING EXCLUSIONS (STRICT CONFIDENTIALITY)
+# ==============================================================================
+*patent*
+*Patent*
+*PATENT*
+*receipt*
+*makbuz*
+*dekont*
+*application-forms*
+*payment*
+*.docx
+
+# ==============================================================================
+# PERSONAL & INTERNAL MARKDOWN EXCLUSIONS (STRICT REPO PRIVACY)
+# ==============================================================================
+*.md
+!README.md
+!readme.md
+**/*.md
+!**/README.md
+!**/readme.md
+
+# Internal, personal and patent directories
+trash/
+**/trash/
+patent/
+**/patent/
+patent_supplemental_2026/
+**/patent_supplemental_2026/
